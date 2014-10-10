@@ -16,7 +16,8 @@ if [ -z "$TARGET" ]; then
   TARGET=$(date -d 'yesterday' +%Y%m%d)
 fi
 
-cd telemetry-server
+# Code is in home directory
+cd $HOME/telemetry-server
 JOB="mapreduce/addon_perf"
 
 FILTER="$WORK/filter.json"
