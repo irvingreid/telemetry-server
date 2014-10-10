@@ -5,6 +5,8 @@ echo "Working in directory $BASE"
 
 WORK="$BASE/work"
 OUTPUT="$BASE/output"
+# Code is in home directory
+CODE="$HOME/telemetry-server"
 TODAY=$(date +%Y%m%d)
 mkdir -p "$OUTPUT"
 mkdir -p "$WORK/cache"
@@ -16,8 +18,7 @@ if [ -z "$TARGET" ]; then
   TARGET=$(date -d 'yesterday' +%Y%m%d)
 fi
 
-# Code is in home directory
-cd $HOME/telemetry-server
+cd $CODE
 JOB="mapreduce/addon_perf"
 
 FILTER="$WORK/filter.json"
@@ -63,9 +64,9 @@ for f in $(seq 0 6); do
     fi
 done
 echo "Creating weekly data for $MONDAY to $SUNDAY"
-python $BASE/telemetry-server/$JOB/combine.py "$OUTPUT" "$MONDAY" *
+python $CODE/$JOB/combine.py "$OUTPUT" "$MONDAY" *
 echo "Created weekly output file:"
 ls -l $OUTPUT/
 
 echo "Copying iacomus configs to s3"
-cp $BASE/telemetry-server/$JOB/addon-perf.json $BASE/telemetry-server/$JOB/addon-scan.json $OUTPUT
+cp $CODE/$JOB/addon-perf.json $CODE/$JOB/addon-scan.json $OUTPUT
