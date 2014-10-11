@@ -8,4 +8,5 @@ if [ -f "$TARBALL" ]; then
 fi
 tar czvf "$TARBALL" \
         run.sh \
+        run-fork.sh \
         README.md
